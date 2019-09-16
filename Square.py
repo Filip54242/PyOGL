@@ -2,8 +2,8 @@ from gl_drawable import GLDrawable
 
 
 class Square(GLDrawable):
-    def __init__(self, center: tuple, size: int):
-        super().__init__()
+    def __init__(self, center: tuple = (0, 0, 0), size: float = 1, vertices: tuple = None):
+        super().__init__(vertices=vertices)
         self.center = center
         self.size = size
 
@@ -19,8 +19,10 @@ class Square(GLDrawable):
         third_point = (first_point[0], first_point[1] + self.size, first_point[2])
         forth_point = (third_point[0] + self.size, third_point[1], third_point[2])
 
-        super().vertices = (first_point, second_point, third_point, forth_point)
+        self.vertices = (first_point, second_point, third_point, forth_point)
 
     def compute_edges(self):
-        super().edges = ((0, 1), (0, 2), (1, 3), (2, 3))
+        self.edges = ((0, 1), (0, 2), (1, 3), (2, 3))
 
+    def compute_surface(self):
+        self.surfaces = (0, 1, 2, 3)

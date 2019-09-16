@@ -20,20 +20,26 @@ class GLDrawable:
                 glVertex3fv(self.vertices[vertex])
         glEnd()
 
-    def draw_surface(self, surface: tuple = None, color: tuple = None):
+    def draw_surface(self,surface: tuple, color: tuple):
         assert surface is not None, "No surface data!"
+        assert color is not None, "No color for the surface!"
         glBegin(GL_QUADS)
-        if color is not None:
+        for vertex in surface:
+            glVertex3fv(self.vertices[vertex])
             glColor3fv(color)
-            for vertex in surface:
-                glVertex3fv(self.vertices[vertex])
         glEnd()
 
-    def draw_surfaces(self, color: tuple = None):
-        for surface in self.surfaces:
-            self.draw_surface(surface, color)
+    def draw_surfaces(self, color: tuple):
+        assert color is not None, "No color for the surfaces!"
+        if type(self.surfaces[0]) is tuple:
+            for surface in self.surfaces:
+                self.draw_surface(surface, color)
+        else:
+            self.draw_surface(self.surfaces, color)
 
-    def draw(self):
+    def draw(self, color: tuple = None):
+        # if color is not None:
+        #     self.draw_surfaces(color)
+
         self.draw_edges()
-        self.draw_surfaces()
-    
+
