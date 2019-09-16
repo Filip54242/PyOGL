@@ -42,9 +42,10 @@ surfaces = (
 def make_cube():
     glBegin(GL_QUADS)
     for surface in surfaces:
-        glColor3fv((randint(0, 1), randint(0, 1), randint(0, 1)))
         for vertex in surface:
+            glColor3fv((randint(0, 1), randint(0, 1), randint(0, 1)))
             glVertex3fv(vertices[vertex])
+        break
     glEnd()
 
     glBegin(GL_LINES)
@@ -90,7 +91,7 @@ def main():
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         make_cube()
         pygame.display.flip()
-        pygame.time.wait(10)
+        pygame.time.wait(1000)
 
 
 main()

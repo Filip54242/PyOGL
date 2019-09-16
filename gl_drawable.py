@@ -5,7 +5,7 @@ from OpenGL.GLU import *
 
 
 class GLDrawable:
-    def __init__(self, vertices: tuple = None, edges: tuple = None, surfaces: tuple = None):
+    def __init__(self, vertices: list = None, edges: list = None, surfaces: list = None):
         self.vertices = vertices
         self.edges = edges
         self.surfaces = surfaces
@@ -20,26 +20,21 @@ class GLDrawable:
                 glVertex3fv(self.vertices[vertex])
         glEnd()
 
-    def draw_surface(self,surface: tuple, color: tuple):
+    def draw_surface(self, surface: list, color: tuple):
         assert surface is not None, "No surface data!"
         assert color is not None, "No color for the surface!"
-        glBegin(GL_QUADS)
+        glBegin(GL_POLYGON)
         for vertex in surface:
             glVertex3fv(self.vertices[vertex])
-            glColor3fv(color)
+        glColor3fv(color)
         glEnd()
 
     def draw_surfaces(self, color: tuple):
         assert color is not None, "No color for the surfaces!"
-        if type(self.surfaces[0]) is tuple:
-            for surface in self.surfaces:
-                self.draw_surface(surface, color)
-        else:
-            self.draw_surface(self.surfaces, color)
+        for surface in self.surfaces:
+            self.draw_surface(surface, color)
 
     def draw(self, color: tuple = None):
-        # if color is not None:
-        #     self.draw_surfaces(color)
-
+        if color is not None:
+            self.draw_surfaces(color)
         self.draw_edges()
-
