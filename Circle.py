@@ -3,11 +3,13 @@ from math import cos, sin, radians
 
 
 class Circle(GLDrawable):
-    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10):
+    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10, axis: int = 0):
         super().__init__()
+        assert -1 < axis < 3, "Invalid axis!"
         self.center = center
         self.radius = radius
         self.segments = segments
+        self.axis = self.AXIS[axis]
 
     def compute_vertices(self):
         self.vertices = []
@@ -15,8 +17,8 @@ class Circle(GLDrawable):
         angle = 0
         while angle <= 360:
             current_point = list(self.center)
-            current_point[0] += self.radius * cos(radians(angle))
-            current_point[1] += self.radius * sin(radians(angle))
+            current_point[self.axis[0]] += self.radius * cos(radians(angle))
+            current_point[self.axis[1]] += self.radius * sin(radians(angle))
             self.vertices.append(tuple(current_point))
             angle += step
 

@@ -9,8 +9,8 @@ gluPerspective(45, (display[0] / display[1]), 0.1, 50)
 glTranslatef(0.0, 0.0, -3)
 while True:
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    sq = Square(axis=1)
-    #sq = Circle(radius=1, segments=10)
+    # sq = Square(axis=1)
+    sq = Circle(radius=1, segments=50, axis=1)
 
     sq.compute_vertices()
     sq.compute_edges()
