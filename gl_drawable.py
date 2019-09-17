@@ -5,6 +5,8 @@ from OpenGL.GLU import *
 
 
 class GLDrawable:
+    AXIS = {0: (0, 1), 1: (0, 2), 2: (1, 2)}
+
     def __init__(self, vertices: list = None, edges: list = None, surfaces: list = None):
         self.vertices = vertices
         self.edges = edges
