@@ -1,3 +1,4 @@
+import abc
 import pygame
 from pygame.locals import *
 from OpenGL.GL import *
@@ -40,3 +41,15 @@ class GLDrawable:
         if color is not None:
             self.draw_surfaces(color)
         self.draw_edges()
+
+    @abc.abstractmethod
+    def compute_surface(self):
+        pass
+
+    @abc.abstractmethod
+    def compute_edges(self):
+        pass
+
+    @abc.abstractmethod
+    def compute_vertices(self):
+        pass
