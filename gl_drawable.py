@@ -1,4 +1,5 @@
 import abc
+from random import randint
 import pygame
 from pygame.locals import *
 from OpenGL.GL import *
@@ -29,6 +30,7 @@ class GLDrawable:
         glBegin(GL_POLYGON)
         for vertex in surface:
             glVertex3fv(self.vertices[vertex])
+        # glColor3fv((randint(0, 1), randint(0, 1), randint(0, 1)))
         glColor3fv(color)
         glEnd()
 
@@ -43,7 +45,7 @@ class GLDrawable:
         self.draw_edges()
 
     @abc.abstractmethod
-    def compute_surface(self):
+    def compute_surfaces(self):
         pass
 
     @abc.abstractmethod

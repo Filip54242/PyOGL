@@ -10,6 +10,9 @@ class Circle(GLDrawable):
         self.radius = radius
         self.segments = segments
         self.axis = self.AXIS[axis]
+        self.compute_vertices()
+        self.compute_edges()
+        self.compute_surfaces()
 
     def compute_vertices(self):
         self.vertices = []
