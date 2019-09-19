@@ -2,7 +2,7 @@ from gl_drawable import *
 from math import cos, sin, radians
 
 
-class Circle(GLDrawable):
+class Polygon(GLDrawable):
     def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10, axis: int = 0):
         super().__init__()
         assert -1 < axis < 3, "Invalid axis!"
@@ -28,7 +28,7 @@ class Circle(GLDrawable):
     def compute_edges(self):
         self.edges = [[index - 1, index] for index in range(1, len(self.vertices))]
 
-    def compute_surface(self):
+    def compute_surfaces(self):
         self.surfaces = [[index for index in range(len(self.vertices))]]
 
     def draw_surfaces(self, color: tuple):

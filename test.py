@@ -1,6 +1,6 @@
 from gl_drawable import *
 from Square import *
-from Circle import *
+from Polygon import *
 from Cube import *
 
 pygame.init()
@@ -14,14 +14,13 @@ while True:
             pygame.quit()
             quit()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    #sq = Square(axis=0)
+    # sq = Square(axis=0)
     # sq = Circle(radius=1, segments=50, axis=1)
-    sq = Cube(size=1)
-
+    # sq = Cube(size=1)
+    sq = Polyhedron(segments=10)
     glRotatef(1, 1, 1, 0)
-    sq.draw(color=(1, 0, 0))
-    #sq.draw()
-
+    # sq.draw(color=(1, 0, 0))
+    sq.draw()
 
     pygame.display.flip()
-    pygame.time.wait(100)
+    pygame.time.wait(10)
