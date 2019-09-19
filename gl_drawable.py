@@ -5,6 +5,8 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+from math import cos, sin, radians
+
 
 class GLDrawable:
     AXIS = {0: (0, 1), 1: (0, 2), 2: (1, 2)}
@@ -43,6 +45,23 @@ class GLDrawable:
         if color is not None:
             self.draw_surfaces(color)
         self.draw_edges()
+
+    def rotate(self, axis: int = 0, angle: float = 0):
+        assert -1 < axis < 3, "Invalid axis!"
+        axis = self.AXIS[axis]
+        new_vertices = []
+        for vertex in self.vertices:
+            new_vertex = list(vertex)
+
+            first_value = new_vertex[axis[0]]
+            second_value = new_vertex[axis[1]]
+
+            new_vertex[axis[0]] = first_value * cos(radians(angle)) - second_value * sin(radians(angle))
+            new_vertex[axis[1]] = first_value * sin(radians(angle)) + second_value * cos(radians(angle))
+
+            new_vertices.append(tuple(new_vertex))
+
+        self.vertices = new_vertices
 
     @abc.abstractmethod
     def compute_surfaces(self):

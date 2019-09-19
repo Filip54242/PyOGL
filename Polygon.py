@@ -1,5 +1,4 @@
 from gl_drawable import *
-from math import cos, sin, radians
 
 
 class Polygon(GLDrawable):

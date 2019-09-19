@@ -8,6 +8,7 @@ display = (1280, 720)
 pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
 gluPerspective(45, (display[0] / display[1]), 0.1, 50)
 glTranslatef(0.0, 0.0, -3)
+sq = Polyhedron(segments=10)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -17,9 +18,10 @@ while True:
     # sq = Square(axis=0)
     # sq = Circle(radius=1, segments=50, axis=1)
     # sq = Cube(size=1)
-    sq = Polyhedron(segments=10)
-    glRotatef(1, 1, 1, 0)
+
+    # glRotatef(1, 1, 1, 0)
     # sq.draw(color=(1, 0, 0))
+    sq.rotate(angle=1, axis=2)
     sq.draw()
 
     pygame.display.flip()
