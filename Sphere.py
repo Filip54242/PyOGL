@@ -29,29 +29,27 @@ class UVSphere(GLDrawable):
         self.top_point[2] += self.radius
         self.bottom_point[2] -= self.radius
 
-        step = self.radius / (self.no_rings // 2)
-        current_step = 0
-        current_radius = self.radius
         if self.no_rings % 2 == 1:
-            ring = Polygon(self.center, current_radius, self.segments)
-            current_radius -= step
+            ring = Polygon(self.center, self.radius, self.segments)
             top_rings.append(ring)
-            current_step = step
+            count = 2
+            stop = self.no_rings // 2 + 1
         else:
-            current_step = step / 2
+            count = 1
+            stop = self.no_rings // 2
 
-        for index in range(self.no_rings // 2):
+        while count <= stop:
             top_node = list(self.center)
             bottom_node = list(self.center)
 
+            coeficient = pi / 2 - pi * (count / self.no_rings // 2)
             top_node[2] += current_step
             bottom_node[2] -= current_step
 
             top_rings.append(Polygon(tuple(top_node), current_radius, self.segments))
             bottom_rings.append(Polygon(tuple(bottom_node), current_radius, self.segments))
 
-            current_step += step
-            current_radius -= step
+            count += 1
 
             top_rings.reverse()
 
@@ -75,7 +73,7 @@ class UVSphere(GLDrawable):
         for vertex in self.rings[-1].vertices:
             self.edges.append([self.index_of_vertex(self.bottom_point), self.index_of_vertex(vertex)])
 
-        for ring_index in range(len(self.rings)-1):
+        for ring_index in range(len(self.rings) - 1):
             for vertex_index in range(len(self.rings[ring_index].vertices)):
                 first_vertex = self.rings[ring_index].vertices[vertex_index]
                 second_vertex = self.rings[ring_index + 1].vertices[vertex_index]

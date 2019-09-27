@@ -5,7 +5,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-from math import cos, sin, radians
+from math import cos, sin, radians, pi
 
 
 class GLDrawable:
