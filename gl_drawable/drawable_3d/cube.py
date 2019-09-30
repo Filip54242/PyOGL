@@ -1,5 +1,5 @@
-from Square import *
-from Polyhedron import *
+from gl_drawable.drawable_2d.square import Square
+from gl_drawable.drawable_3d.polyhedron import Polyhedron
 
 
 class Cube(Polyhedron):

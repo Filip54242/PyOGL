@@ -1,4 +1,5 @@
-from Polygon import *
+from gl_drawable.drawable_2d.polygon import Polygon
+from gl_drawable.gl_drawable import GLDrawable
 
 
 class Polyhedron(GLDrawable):

@@ -1,4 +1,6 @@
-from gl_drawable import *
+from gl_drawable.gl_drawable import GLDrawable
+from math import sin, cos, radians
+from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_TRIANGLE_FAN
 
 
 class Polygon(GLDrawable):

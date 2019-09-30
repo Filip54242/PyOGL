@@ -1,4 +1,7 @@
-from Polygon import *
+from gl_drawable.drawable_2d.polygon import Polygon
+from gl_drawable.gl_drawable import GLDrawable
+from math import sin, cos, pi
+from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_TRIANGLE_FAN
 
 
 class UVSphere(GLDrawable):

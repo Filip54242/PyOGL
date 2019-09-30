@@ -1,4 +1,4 @@
-from gl_drawable import *
+from gl_drawable.gl_drawable import GLDrawable
 
 
 class Square(GLDrawable):

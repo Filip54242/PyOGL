@@ -1,8 +1,8 @@
-from gl_drawable import *
-from Square import *
-from Polygon import *
-from Cube import *
-from Sphere import *
+from OpenGL.GL import glTranslatef, glRotatef, glClear, GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT
+from OpenGL.raw.GLU import gluPerspective
+from gl_drawable.drawable_3d.sphere import UVSphere
+import pygame
+from pygame.locals import *
 
 pygame.init()
 display = (1280, 720)
@@ -12,6 +12,7 @@ glTranslatef(0.0, 0.0, -3)
 glRotatef(1, 0, 0, 0)
 
 sq = UVSphere()
+amount = 0.1
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -21,9 +22,11 @@ while True:
     # sq = Square(axis=0)
     # sq = Circle(radius=1, segments=50, axis=1)
     # sq = Cube(size=1)
-    # sq.draw()
-    glRotatef(1, 1, 0, 0)
-    sq.draw(color=(1, 0, 0))
+    sq.draw()
+    sq.move([0, amount, 0])
+    amount += 0.001
+    # glRotatef(1, 1, 0, 0)
+    # sq.draw(color=(1, 0, 0))
     # sq.rotate(angle=0.1, axis=2)
 
     pygame.display.flip()

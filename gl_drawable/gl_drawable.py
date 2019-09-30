@@ -1,11 +1,6 @@
 import abc
-from random import randint
-import pygame
-from pygame.locals import *
-from OpenGL.GL import *
-from OpenGL.GLU import *
-
-from math import cos, sin, radians, pi, degrees
+from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_POLYGON, GL_LINES
+from math import cos, sin, radians
 
 
 class GLDrawable:
@@ -32,7 +27,6 @@ class GLDrawable:
         glBegin(GL_POLYGON)
         for vertex in surface:
             glVertex3fv(self.vertices[vertex])
-        # glColor3fv((randint(0, 1), randint(0, 1), randint(0, 1)))
         glColor3fv(color)
         glEnd()
 
@@ -46,7 +40,7 @@ class GLDrawable:
             self.draw_surfaces(color)
         self.draw_edges()
 
-    def rotate(self, axis: int = 0, angle: float = 0):
+    def rotate(self, angle: float = 0, axis: int = 0):
         assert -1 < axis < 3, "Invalid axis!"
         axis = self.AXIS[axis]
         new_vertices = []
@@ -59,6 +53,15 @@ class GLDrawable:
             new_vertex[axis[0]] = first_value * cos(radians(angle)) - second_value * sin(radians(angle))
             new_vertex[axis[1]] = first_value * sin(radians(angle)) + second_value * cos(radians(angle))
 
+            new_vertices.append(tuple(new_vertex))
+
+        self.vertices = new_vertices
+
+    def move(self, amount: list):
+        assert len(amount) == 3, "Invalid amount"
+        new_vertices = []
+        for vertex in self.vertices:
+            new_vertex = [sum(element) for element in zip(list(vertex), amount)]
             new_vertices.append(tuple(new_vertex))
 
         self.vertices = new_vertices
