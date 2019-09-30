@@ -20,43 +20,18 @@ class UVSphere(GLDrawable):
         return self.vertices.index(vertex)
 
     def compute_rings(self):
-        top_rings = []
-        bottom_rings = []
+        count = 1
+        self.rings = []
+        while count <= self.no_rings:
+            center_vertex = list(self.center)
+            coefficient = (pi / 2) - (pi * count) / self.no_rings
 
-        self.top_point = list(self.center)
-        self.bottom_point = list(self.center)
+            center_vertex[2] += self.radius * sin(coefficient)
+            current_radius = self.radius * cos(coefficient)
 
-        self.top_point[2] += self.radius
-        self.bottom_point[2] -= self.radius
-
-        if self.no_rings % 2 == 1:
-            ring = Polygon(self.center, self.radius, self.segments)
-            top_rings.append(ring)
-            count = 2
-            stop = self.no_rings // 2 + 1
-        else:
-            count = 1
-            stop = self.no_rings // 2
-
-        while count <= stop:
-            top_node = list(self.center)
-            bottom_node = list(self.center)
-
-            coeficient = pi / 2 - pi * (count / self.no_rings // 2)
-            top_node[2] += current_step
-            bottom_node[2] -= current_step
-
-            top_rings.append(Polygon(tuple(top_node), current_radius, self.segments))
-            bottom_rings.append(Polygon(tuple(bottom_node), current_radius, self.segments))
+            self.rings.append(Polygon(tuple(center_vertex), current_radius, self.segments))
 
             count += 1
-
-            top_rings.reverse()
-
-        self.rings = top_rings + bottom_rings
-
-    def compute_surfaces(self):
-        pass
 
     def compute_edges(self):
         self.edges = []
@@ -80,6 +55,62 @@ class UVSphere(GLDrawable):
                 self.edges.append([self.index_of_vertex(first_vertex), self.index_of_vertex(second_vertex)])
 
     def compute_vertices(self):
+        self.top_point = list(self.center)
+        self.bottom_point = list(self.center)
+
+        self.top_point[2] += self.radius
+        self.bottom_point[2] -= self.radius
+
         self.vertices = [self.top_point, self.bottom_point]
         for ring in self.rings:
             self.vertices += ring.vertices
+
+    def compute_surfaces(self):
+        top_ring = []
+        bottom_ring = []
+
+        for vertex in self.rings[0].vertices:
+            top_ring.append(self.index_of_vertex(vertex))
+        for vertex in self.rings[-1].vertices:
+            bottom_ring.append(self.index_of_vertex(vertex))
+
+        self.surfaces = [top_ring, bottom_ring]
+
+        for ring_index in range(len(self.rings) - 1):
+            for vertex_index in range(len(self.rings[ring_index].vertices) - 1):
+                first_vertex = self.index_of_vertex(self.rings[ring_index].vertices[vertex_index])
+                second_vertex = self.index_of_vertex(self.rings[ring_index].vertices[vertex_index + 1])
+                third_vertex = self.index_of_vertex(self.rings[ring_index + 1].vertices[vertex_index + 1])
+                forth_vertex = self.index_of_vertex(self.rings[ring_index + 1].vertices[vertex_index])
+                self.surfaces.append([first_vertex, second_vertex, third_vertex, forth_vertex])
+
+            first_vertex = self.index_of_vertex(self.rings[ring_index].vertices[-1])
+            second_vertex = self.index_of_vertex(self.rings[ring_index].vertices[0])
+            third_vertex = self.index_of_vertex(self.rings[ring_index + 1].vertices[0])
+            forth_vertex = self.index_of_vertex(self.rings[ring_index + 1].vertices[-1])
+            self.surfaces.append([first_vertex, second_vertex, third_vertex, forth_vertex])
+
+    def draw_top_circle(self, color: tuple):
+        assert color is not None, "No color for the surfaces!"
+        glBegin(GL_TRIANGLE_FAN)
+        glVertex3fv(self.top_point)
+        for vertex in self.surfaces[0]:
+            glVertex3fv(self.vertices[vertex])
+        glColor3fv(color)
+        glEnd()
+
+    def draw_bottom_circle(self, color: tuple):
+        assert color is not None, "No color for the surfaces!"
+        glBegin(GL_TRIANGLE_FAN)
+        glVertex3fv(self.bottom_point)
+        for vertex in self.surfaces[1]:
+            glVertex3fv(self.vertices[vertex])
+        glColor3fv(color)
+        glEnd()
+
+    def draw_surfaces(self, color: tuple):
+        assert color is not None, "No color for the surfaces!"
+        self.draw_top_circle(color)
+        self.draw_bottom_circle(color)
+        for index in range(2, len(self.surfaces)):
+            self.draw_surface(self.surfaces[index], color)

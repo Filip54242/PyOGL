@@ -11,6 +11,7 @@ gluPerspective(45, (display[0] / display[1]), 0.1, 50)
 glTranslatef(0.0, 0.0, -3)
 glRotatef(1, 0, 0, 0)
 
+sq = UVSphere()
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -20,10 +21,9 @@ while True:
     # sq = Square(axis=0)
     # sq = Circle(radius=1, segments=50, axis=1)
     # sq = Cube(size=1)
-    sq = UVSphere()
-    sq.draw()
-    # glRotatef(1, 1, 0, 0)
-    # sq.draw(color=(1, 0, 0))
+    # sq.draw()
+    glRotatef(1, 1, 0, 0)
+    sq.draw(color=(1, 0, 0))
     # sq.rotate(angle=0.1, axis=2)
 
     pygame.display.flip()
