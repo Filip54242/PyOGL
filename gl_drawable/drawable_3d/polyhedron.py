@@ -4,8 +4,9 @@ from gl_drawable.gl_drawable import GLDrawable
 
 class Polyhedron(GLDrawable):
 
-    def __init__(self, center: tuple = (0, 0, 0), size: float = 1, radius: float = 1, segments: int = 3):
-        super().__init__()
+    def __init__(self, center: tuple = (0, 0, 0), size: float = 1, radius: float = 1, segments: int = 3,
+                 color: tuple = None):
+        super().__init__(color=color)
         self.center = center
         self.size = size
         self.radius = radius

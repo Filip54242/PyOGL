@@ -4,8 +4,8 @@ from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_TRIANGLE_FAN
 
 
 class Polygon(GLDrawable):
-    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10, axis: int = 0):
-        super().__init__()
+    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10, axis: int = 0,color: tuple = None):
+        super().__init__(color=color)
         assert -1 < axis < 3, "Invalid axis!"
         self.center = center
         self.radius = radius
@@ -32,12 +32,12 @@ class Polygon(GLDrawable):
     def compute_surfaces(self):
         self.surfaces = [[index for index in range(len(self.vertices))]]
 
-    def draw_surfaces(self, color: tuple):
-        assert color is not None, "No color for the surfaces!"
-        glBegin(GL_TRIANGLE_FAN)
-        glVertex3fv(self.center)
-        for surface in self.surfaces:
-            for vertex in surface:
-                glVertex3fv(self.vertices[vertex])
-        glColor3fv(color)
-        glEnd()
+    def draw_surfaces(self):
+        if self.color is not None:
+            glBegin(GL_TRIANGLE_FAN)
+            glVertex3fv(self.center)
+            for surface in self.surfaces:
+                for vertex in surface:
+                    glVertex3fv(self.vertices[vertex])
+            glColor3fv(self.color)
+            glEnd()

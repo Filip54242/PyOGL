@@ -2,17 +2,16 @@ from OpenGL.GL import glTranslatef, glRotatef, glClear, GL_COLOR_BUFFER_BIT, GL_
 from OpenGL.raw.GLU import gluPerspective
 from gl_drawable.drawable_3d.sphere import UVSphere
 import pygame
-from pygame.locals import *
+from pygame.locals import DOUBLEBUF, OPENGL
 
 pygame.init()
 display = (1280, 720)
 pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
 gluPerspective(45, (display[0] / display[1]), 0.1, 50)
 glTranslatef(0.0, 0.0, -3)
-glRotatef(1, 0, 0, 0)
+glRotatef(90, 1, 0, 0)
 
-sq = UVSphere()
-amount = 0.1
+sq = UVSphere(segments=4, color=(0,1,0))
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -22,9 +21,9 @@ while True:
     # sq = Square(axis=0)
     # sq = Circle(radius=1, segments=50, axis=1)
     # sq = Cube(size=1)
+    glRotatef(1, 1, 0, 0)
+    sq.rotate()
     sq.draw()
-    sq.move([0, amount, 0])
-    amount += 0.001
     # glRotatef(1, 1, 0, 0)
     # sq.draw(color=(1, 0, 0))
     # sq.rotate(angle=0.1, axis=2)

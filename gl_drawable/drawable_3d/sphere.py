@@ -5,8 +5,9 @@ from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_TRIANGLE_FAN
 
 
 class UVSphere(GLDrawable):
-    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 16, rings: int = 32):
-        super().__init__()
+    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 16, rings: int = 32,
+                 color: tuple = None):
+        super().__init__(color=color)
         self.center = center
         self.radius = radius
         self.segments = segments
@@ -18,6 +19,7 @@ class UVSphere(GLDrawable):
         self.compute_vertices()
         self.compute_edges()
         self.compute_surfaces()
+        del self.rings
 
     def index_of_vertex(self, vertex):
         return self.vertices.index(vertex)
@@ -93,27 +95,25 @@ class UVSphere(GLDrawable):
             forth_vertex = self.index_of_vertex(self.rings[ring_index + 1].vertices[-1])
             self.surfaces.append([first_vertex, second_vertex, third_vertex, forth_vertex])
 
-    def draw_top_circle(self, color: tuple):
-        assert color is not None, "No color for the surfaces!"
+    def draw_top_circle(self):
         glBegin(GL_TRIANGLE_FAN)
         glVertex3fv(self.top_point)
         for vertex in self.surfaces[0]:
             glVertex3fv(self.vertices[vertex])
-        glColor3fv(color)
+        glColor3fv(self.color)
         glEnd()
 
-    def draw_bottom_circle(self, color: tuple):
-        assert color is not None, "No color for the surfaces!"
+    def draw_bottom_circle(self):
         glBegin(GL_TRIANGLE_FAN)
         glVertex3fv(self.bottom_point)
         for vertex in self.surfaces[1]:
             glVertex3fv(self.vertices[vertex])
-        glColor3fv(color)
+        glColor3fv(self.color)
         glEnd()
 
-    def draw_surfaces(self, color: tuple):
-        assert color is not None, "No color for the surfaces!"
-        self.draw_top_circle(color)
-        self.draw_bottom_circle(color)
-        for index in range(2, len(self.surfaces)):
-            self.draw_surface(self.surfaces[index], color)
+    def draw_surfaces(self):
+        if self.color is not None:
+            self.draw_top_circle()
+            self.draw_bottom_circle()
+            for index in range(2, len(self.surfaces)):
+                self.draw_surface(self.surfaces[index])

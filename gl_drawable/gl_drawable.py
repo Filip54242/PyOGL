@@ -6,10 +6,11 @@ from math import cos, sin, radians
 class GLDrawable:
     AXIS = {0: (0, 1), 1: (0, 2), 2: (1, 2)}
 
-    def __init__(self, vertices: list = None, edges: list = None, surfaces: list = None):
+    def __init__(self, vertices: list = None, edges: list = None, surfaces: list = None, color: tuple = None):
         self.vertices = vertices
         self.edges = edges
         self.surfaces = surfaces
+        self.color = color
 
     def draw_edges(self):
         assert self.edges is not None, "No edge data!"
@@ -21,23 +22,24 @@ class GLDrawable:
                 glVertex3fv(self.vertices[vertex])
         glEnd()
 
-    def draw_surface(self, surface: list, color: tuple):
+    def draw_surface(self, surface: list):
         assert surface is not None, "No surface data!"
-        assert color is not None, "No color for the surface!"
         glBegin(GL_POLYGON)
         for vertex in surface:
             glVertex3fv(self.vertices[vertex])
-        glColor3fv(color)
+        glColor3fv(self.color)
         glEnd()
 
-    def draw_surfaces(self, color: tuple):
-        assert color is not None, "No color for the surfaces!"
+    def draw_surfaces(self):
         for surface in self.surfaces:
-            self.draw_surface(surface, color)
+            self.draw_surface(surface)
 
-    def draw(self, color: tuple = None):
-        if color is not None:
-            self.draw_surfaces(color)
+    def draw(self):
+        if self.color is not None:
+            self.draw_surfaces()
+        self.draw_wireframe()
+
+    def draw_wireframe(self):
         self.draw_edges()
 
     def rotate(self, angle: float = 0, axis: int = 0):
