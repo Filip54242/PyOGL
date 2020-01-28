@@ -11,7 +11,7 @@ gluPerspective(45, (display[0] / display[1]), 0.1, 50)
 glTranslatef(0.0, 0.0, -3)
 glRotatef(90, 1, 0, 0)
 
-sq = UVSphere(segments=4, color=(0,1,0))
+sq = UVSphere(segments=4)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

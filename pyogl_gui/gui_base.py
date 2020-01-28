@@ -67,7 +67,6 @@ class GUIBase:
     def start(self):
         while True:
             self.clear_opengl()
-            for object in self.objects:
-                object.draw()
+            [object.draw() for object in self.objects]
             self.handle_events()
             self.clear_frame()
