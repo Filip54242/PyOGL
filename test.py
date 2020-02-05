@@ -1,32 +1,20 @@
-from OpenGL.GL import glTranslatef, glRotatef, glClear, GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT
-from OpenGL.raw.GLU import gluPerspective
-from gl_drawable.drawable_3d.sphere import UVSphere
+from tkinter import *
 import pygame
-from pygame.locals import DOUBLEBUF, OPENGL
+import random
+import os
 
-pygame.init()
-display = (1280, 720)
-pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
-gluPerspective(45, (display[0] / display[1]), 0.1, 50)
-glTranslatef(0.0, 0.0, -3)
-glRotatef(90, 1, 0, 0)
-
-sq = UVSphere(segments=4)
+root = Tk()
+embed = Frame(root, width=640, height=480)
+embed.grid(row=0, column=0)
+root.update()
+os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
+pygame.display.init()
+screen = pygame.display.set_mode((640, 480))
+pygame.display.flip()
+button = Button(root, text='ok')
+button.grid(row=1, column=0)
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    # sq = Square(axis=0)
-    # sq = Circle(radius=1, segments=50, axis=1)
-    # sq = Cube(size=1)
-    glRotatef(1, 1, 0, 0)
-    sq.rotate()
-    sq.draw()
-    # glRotatef(1, 1, 0, 0)
-    # sq.draw(color=(1, 0, 0))
-    # sq.rotate(angle=0.1, axis=2)
-
+    # your code here
+    screen.fill((random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
     pygame.display.flip()
-    pygame.time.wait(10)
+    root.update()
