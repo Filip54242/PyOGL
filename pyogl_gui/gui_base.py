@@ -60,13 +60,19 @@ class GUIBase:
     def close(self):
         pass
 
+    def draw_objects(self):
+        [object.draw() for object in self.objects]
+
     def quit(self):
         self.close()
         exit(0)
 
+    def handle_frame(self):
+        self.clear_opengl()
+        self.draw_objects()
+        self.handle_events()
+        self.clear_frame()
+
     def start(self):
         while True:
-            self.clear_opengl()
-            [object.draw() for object in self.objects]
-            self.handle_events()
-            self.clear_frame()
+            self.handle_frame()
