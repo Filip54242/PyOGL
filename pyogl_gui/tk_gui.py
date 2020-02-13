@@ -23,7 +23,7 @@ class TKGUI:
     def init_main_window(self):
         self.main_window = Tk()
         self.py_game_frame = Frame(self.main_window, width=800, height=600)
-        self.py_game_frame.grid(row=0, column=0, columnspan=1)
+        self.py_game_frame.grid(row=0, column=0, columnspan=5)
         self.main_window.update()
         os.environ['SDL_WINDOWID'] = str(self.py_game_frame.winfo_id())
         self.py_game_gui = PyGameGui()
@@ -31,11 +31,15 @@ class TKGUI:
         self.zoom_out_button = Button(self.main_window, text='Zoom Out', command=self.zoom_out)
         self.zoom_out_button.grid(row=1, column=0)
         self.zoom_in_button = Button(self.main_window, text='Zoom In', command=self.zoom_in)
-        self.zoom_in_button.grid(row=1, column=1)
+        self.zoom_in_button.grid(row=1, column=4)
         self.rotate_left_button = Button(self.main_window, text='Rotate left', command=self.rotate_left)
-        self.rotate_left_button.grid(row=1, column=2)
+        self.rotate_left_button.grid(row=3, column=1)
         self.rotate_right_button = Button(self.main_window, text='Rotate right', command=self.rotate_right)
-        self.rotate_right_button.grid(row=1, column=3)
+        self.rotate_right_button.grid(row=3, column=3)
+        self.rotate_up_button = Button(self.main_window, text='Rotate up', command=self.rotate_left)
+        self.rotate_up_button.grid(row=2, column=2)
+        self.rotate_down_button = Button(self.main_window, text='Rotate down', command=self.rotate_right)
+        self.rotate_down_button.grid(row=4, column=2)
 
     def rotate_right(self):
         self.py_game_gui.rotate_camera(10, 1)
@@ -56,5 +60,6 @@ class TKGUI:
         self.py_game_gui.rotate_camera(-1, 2)
 
     def main_loop(self):
-        self.py_game_gui.handle_frame()
-        self.main_window.update()
+        while True:
+            self.py_game_gui.handle_frame()
+            self.main_window.update()
