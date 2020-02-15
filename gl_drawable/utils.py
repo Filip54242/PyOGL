@@ -14,3 +14,7 @@ def polygon_complexity(polygon: Polygon, percentage: float):
     segments += segments * percentage
 
     return Polygon(segments=segments, axis=axis, radius=radius, color=color)
+
+
+def polyhedron_complexity(polyhedron: Polyhedron, percentage: float):
+    pass
