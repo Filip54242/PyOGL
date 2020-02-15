@@ -2,8 +2,8 @@ from tkinter import *
 import pygame
 import random
 import os
-
-from gl_drawable.drawable_3d import sphere
+from gl_drawable import gl_drawable
+from gl_drawable.drawable_3d import *
 from pyogl_gui.pygame_gui import PyGameGui
 
 
@@ -18,6 +18,7 @@ class TKGUI:
         self.py_game_gui = None
         self.main_window = None
         self.py_game_frame = None
+        self.object_colors = [None, (0, 0, 1), (0, 1, 0), (1, 0, 0)]
         self.init_main_window()
 
     def init_main_window(self):
@@ -58,6 +59,11 @@ class TKGUI:
 
     def zoom_out(self):
         self.py_game_gui.rotate_camera(-1, 2)
+
+    def complexity_object(self, object: int, operation: float):
+
+        if object is gl_drawable:
+            pass
 
     def main_loop(self):
         while True:

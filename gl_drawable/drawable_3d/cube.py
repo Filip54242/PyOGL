@@ -4,7 +4,7 @@ from gl_drawable.drawable_3d.polyhedron import Polyhedron
 
 class Cube(Polyhedron):
 
-    def __init__(self, center: tuple = (0, 0, 0), size: float = 1 ,color: tuple = None):
+    def __init__(self, center: tuple = (0, 0, 0), size: float = 1, color: tuple = None):
         super().__init__(color=color)
         self.center = center
         self.size = size
