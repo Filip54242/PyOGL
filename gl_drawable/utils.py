@@ -5,6 +5,14 @@ from gl_drawable.drawable_3d.polyhedron import Polyhedron
 from gl_drawable.drawable_3d.sphere import UVSphere
 
 
+def square_complexity(square: Square, percentage: float):
+    return square
+
+
+def cube_complexity(cube: Cube, percentage: float):
+    return cube
+
+
 def polygon_complexity(polygon: Polygon, percentage: float):
     segments = polygon.segments
     radius = polygon.radius
@@ -17,4 +25,21 @@ def polygon_complexity(polygon: Polygon, percentage: float):
 
 
 def polyhedron_complexity(polyhedron: Polyhedron, percentage: float):
-    pass
+    segments = polyhedron.segments
+    radius = polyhedron.radius
+    color = polyhedron.color
+
+    segments += segments * percentage
+    return Polyhedron(segments=segments, radius=radius, color=color)
+
+
+def sphere_complexity(sphere: UVSphere, percentage: float):
+    segments = sphere.segments
+    radius = sphere.radius
+    color = sphere.color
+    rings = sphere.rings
+
+    segments += segments * percentage
+    rings += rings * percentage
+
+    return UVSphere(segments=segments, rings=rings, color=color, radius=radius)
