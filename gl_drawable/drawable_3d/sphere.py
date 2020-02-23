@@ -5,6 +5,9 @@ from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_TRIANGLE_FAN
 
 
 class UVSphere(GLDrawable):
+    def __str__(self):
+        return "UVSphere"
+
     def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 16, rings: int = 32,
                  color: tuple = None):
         super().__init__(color=color)

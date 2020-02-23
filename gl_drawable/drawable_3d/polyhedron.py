@@ -3,6 +3,8 @@ from gl_drawable.gl_drawable import GLDrawable
 
 
 class Polyhedron(GLDrawable):
+    def __str__(self):
+        return "Polyhedron"
 
     def __init__(self, center: tuple = (0, 0, 0), size: float = 1, radius: float = 1, segments: int = 3,
                  color: tuple = None):

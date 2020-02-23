@@ -4,7 +4,11 @@ from OpenGL.GL import glBegin, glVertex3fv, glColor3fv, glEnd, GL_TRIANGLE_FAN
 
 
 class Polygon(GLDrawable):
-    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10, axis: int = 0,color: tuple = None):
+    def __str__(self):
+        return "Polygon"
+
+    def __init__(self, center: tuple = (0, 0, 0), radius: float = 1, segments: int = 10, axis: int = 0,
+                 color: tuple = None):
         super().__init__(color=color)
         assert -1 < axis < 3, "Invalid axis!"
         self.center = center

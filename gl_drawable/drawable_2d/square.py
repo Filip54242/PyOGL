@@ -2,7 +2,10 @@ from gl_drawable.gl_drawable import GLDrawable
 
 
 class Square(GLDrawable):
-    def __init__(self, center: tuple = (0, 0, 0), size: float = 1, axis: int = 0,color: tuple = None):
+    def __str__(self):
+        return "Square"
+
+    def __init__(self, center: tuple = (0, 0, 0), size: float = 1, axis: int = 0, color: tuple = None):
         super().__init__(color=color)
         assert -1 < axis < 3, "Invalid axis!"
         self.center = center

@@ -19,7 +19,7 @@ def polygon_complexity(polygon: Polygon, percentage: float):
     axis = polygon.axis
     color = polygon.color
 
-    segments += segments * percentage
+    segments += int(segments * percentage)
 
     return Polygon(segments=segments, axis=axis, radius=radius, color=color)
 
@@ -29,7 +29,7 @@ def polyhedron_complexity(polyhedron: Polyhedron, percentage: float):
     radius = polyhedron.radius
     color = polyhedron.color
 
-    segments += segments * percentage
+    segments += int(segments * percentage)
     return Polyhedron(segments=segments, radius=radius, color=color)
 
 
@@ -37,9 +37,9 @@ def sphere_complexity(sphere: UVSphere, percentage: float):
     segments = sphere.segments
     radius = sphere.radius
     color = sphere.color
-    rings = sphere.rings
+    rings = sphere.no_rings
 
-    segments += segments * percentage
-    rings += rings * percentage
+    segments += int(segments * percentage)
+    rings += int(rings * percentage)
 
     return UVSphere(segments=segments, rings=rings, color=color, radius=radius)
