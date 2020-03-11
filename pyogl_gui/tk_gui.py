@@ -1,10 +1,5 @@
 from tkinter import *
-import pygame
-import random
 import os
-from gl_drawable import gl_drawable
-from gl_drawable.drawable_3d import *
-from gl_drawable.drawable_2d import *
 from pyogl_gui.pygame_gui import PyGameGui
 from gl_drawable.utils import *
 from random import randint
